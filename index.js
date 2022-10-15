@@ -37,6 +37,10 @@ async function run() {
       const result = await userCollection.find({}).toArray();
       res.send(result);
     });
+    app.get("/UserBinUpdate", async (req, res) => {
+      const result = await userCollection.find({}).toArray();
+      res.send(result);
+    });
     // get by id
     app.get("/user/:_id", async (req, res) => {
       const _id = req.params._id;
@@ -119,6 +123,20 @@ async function run() {
       const updateDoc = {
         $set: {
           bin: UpdateUser,
+        },
+      };
+      const result = await userCollection.updateOne(filter, updateDoc, option);
+      res.send(result);
+    });
+    app.put("/userBinUpdate/:id", async (req, res) => {
+      const id = req.params.id;
+      // console.log(id);
+
+      const filter = { _id: ObjectId(id) };
+      const option = { upset: true };
+      const updateDoc = {
+        $set: {
+          bin: "",
         },
       };
       const result = await userCollection.updateOne(filter, updateDoc, option);
